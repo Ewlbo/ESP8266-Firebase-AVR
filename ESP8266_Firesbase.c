@@ -44,15 +44,15 @@ void ESPinit(void)
 	
 	// Connect to Wi-Fi
 	printf("AT+CWJAP=\"%s\",\"%s\"\r\n",ssid,psk);
-	waitFor("OK");
+	waitFor(_OK);
 	
 	// Client mode
 	printf("AT+CWMODE=1\r\n");
-	waitFor("OK");
+	waitFor(_OK);
 	
 	// Enable multiple connections
 	printf("AT+CIPMUX=1\r\n");
-	waitFor("OK");
+	waitFor(_OK);
 	
 	_delay_ms(500);
 }
@@ -93,7 +93,7 @@ void pushData(void)
 	
 	// Start TCP connection with ThingSpeak on port 80 channel 0 (ESP8266 can handle 4 channels)
 	printf("AT+CIPSTART=0,\"TCP\",\"api.thingspeak.com\",%d\r\n",port);
-	waitFor("OK");
+	waitFor(_OK);
 	
 	// Use channel 0 and define length of message
 	printf("AT+CIPSEND=0,%d\r\n",strlen(HTTP)+34);	// 34 is the length of "HTTP/1.1 Host: api.thingspeak.com" added later on
@@ -144,7 +144,7 @@ void tweet(char* message)
 	
 	// Start TCP connection with ThingSpeak on port 80 channel 1 (ESP8266 can handle 4 channels)
 	printf("AT+CIPSTART=1,\"TCP\",\"api.thingspeak.com\",%d\r\n",port);
-	waitFor("OK");
+	waitFor(_OK);
 	
 	// Use channel 1 and define length of message
 	printf("AT+CIPSEND=1,%d\r\n",strlen(HTTP)+34);	// 34 is the length of "HTTP/1.1 Host: api.thingspeak.com" added later on
